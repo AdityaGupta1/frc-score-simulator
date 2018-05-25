@@ -8,9 +8,33 @@
 }
 
 #ruleAdder {
-    -fx-padding: 0 10 10 10;
+    -fx-padding: 30 10 10 10;
 }
 
-#table Label {
+.modeLabel {
     -fx-font-size: 15px;
+}
+
+.rule Label {
+    -fx-font-size: 12px;
+}
+
+.rule {
+    -fx-padding: 5 0 5 0;
+}
+
+#inField, #outField, #addField {
+    -fx-pref-width: 300px;
+}
+
+#secondsField {
+    -fx-pref-width: 50px;
+}
+
+#chartBox {
+    -fx-alignment: center;
+}
+
+#chart {
+    -fx-min-width: 50%;
 }

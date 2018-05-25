@@ -1,16 +1,17 @@
 package rules;
 
-public class RatioRule implements ScoringRule {
-    private int gameObjects;
-    private int score;
+import main.Main;
 
-    public RatioRule(int gameObjects, int score) {
-        this.gameObjects = gameObjects;
-        this.score = score;
+import java.util.HashMap;
+
+public class RatioRule extends ScoringRule {
+    public RatioRule(HashMap<String, Integer> in, HashMap<String, Integer> out) {
+        super(in, out, null);
     }
 
-    public int getScore(int gameObjects) {
-        // int division --> truncate
-        return (gameObjects / this.gameObjects) * score;
+    public void simulate() {
+        while (Main.getGameObjects().subtract(in)) {
+            Main.addGameObjects(out);
+        }
     }
 }

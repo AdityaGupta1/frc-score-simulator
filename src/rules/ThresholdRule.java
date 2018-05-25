@@ -1,15 +1,24 @@
 package rules;
 
-public class ThresholdRule implements ScoringRule {
-    private int gameObjects;
-    private int score;
+import main.Main;
 
-    public ThresholdRule(int gameObjects, int score) {
-        this.gameObjects = gameObjects;
-        this.score = score;
+import java.util.HashMap;
+
+public class ThresholdRule extends ScoringRule {
+    private boolean added = false;
+
+    public ThresholdRule(HashMap<String, Integer> in, HashMap<String, Integer> out) {
+        super(in, out, null);
     }
 
-    public int getScore(int gameObjects) {
-        return gameObjects > this.gameObjects ? score : 0;
+    public void simulate() {
+        if (added) {
+            return;
+        }
+
+        if (Main.getGameObjects().has(in)) {
+            Main.addGameObjects(out);
+            added = true;
+        }
     }
 }
