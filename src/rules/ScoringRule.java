@@ -33,7 +33,7 @@ public abstract class ScoringRule {
 
         for (String gameObject : string.split(", ")) {
             String[] temp = gameObject.split("x ");
-            gameObjects.put(temp[1], Integer.parseInt(temp[0]));
+            gameObjects.put(temp[1].equals("point") ? "points" : temp[1], Integer.parseInt(temp[0]));
         }
 
         return gameObjects;

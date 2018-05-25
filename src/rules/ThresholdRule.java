@@ -21,4 +21,8 @@ public class ThresholdRule extends ScoringRule {
             added = true;
         }
     }
+
+    public void reset() {
+        added = false;
+    }
 }

@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import rules.GameObjects;
 import rules.ScoringRule;
+import rules.ThresholdRule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,8 @@ public class Main extends Application {
     private static final GameObjects gameObjects = new GameObjects();
     // gameObjects that isn't subtracted from, for threshold rule purposes
     private static final GameObjects thresholdGameObjects = new GameObjects();
+    // only threshold rules, so they can be reset before re-simulating
+    private static final ArrayList<ThresholdRule> thresholdRules = new ArrayList<>();
 
     private static final XYChart.Series autonSeries = new XYChart.Series();
     private static final XYChart.Series teleopSeries = new XYChart.Series();
@@ -169,6 +172,10 @@ public class Main extends Application {
                     teleopTimes.add(time);
             }
 
+            if (rule instanceof ThresholdRule) {
+                thresholdRules.add((ThresholdRule) rule);
+            }
+
             int[] columnIndices = mode.equals("both") ? new int[]{0, 1} : new int[]{mode.equals("autonomous") ? 0 : 1};
 
             boolean isThreshold = ruleType.equals("threshold");
@@ -197,18 +204,27 @@ public class Main extends Application {
         stage.show();
     }
 
-    private static int getPoints() {
-        return gameObjects.get("point") + gameObjects.get("points");
-    }
-
-    private static void simulate() {
+    private static void reset() {
         gameObjects.clear();
+        thresholdGameObjects.clear();
 
-        GameMode auton = new GameMode(autonRules, autonTimes);
-        GameMode teleop = new GameMode(teleopRules, teleopTimes);
+        for (ThresholdRule rule : thresholdRules) {
+            rule.reset();
+        }
 
         autonSeries.getData().clear();
         teleopSeries.getData().clear();
+    }
+
+    private static int getPoints() {
+        return gameObjects.get("points");
+    }
+
+    private static void simulate() {
+        reset();
+
+        GameMode auton = new GameMode(autonRules, autonTimes);
+        GameMode teleop = new GameMode(teleopRules, teleopTimes);
 
         for (int t = 0; t <= 15; t++) {
             auton.simulate(t);
@@ -221,7 +237,6 @@ public class Main extends Application {
             teleopSeries.getData().add(new XYChart.Data(t, getPoints()));
             System.out.println(getPoints());
         }
-
     }
 
     public static void addGameObjects(HashMap<String, Integer> newGameObjects) {
