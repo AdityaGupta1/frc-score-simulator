@@ -16,4 +16,8 @@ public class Time {
     public boolean isSingleton() {
         return isSingleton;
     }
+
+    public String toString() {
+        return time + ", isSingleton: " + isSingleton;
+    }
 }

@@ -11,6 +11,7 @@ public class RatioRule extends ScoringRule {
 
     public void simulate() {
         while (Main.getGameObjects().subtract(in)) {
+            System.out.println("test");
             Main.addGameObjects(out);
         }
     }

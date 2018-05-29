@@ -16,7 +16,7 @@ public class ThresholdRule extends ScoringRule {
             return;
         }
 
-        if (Main.getGameObjects().has(in)) {
+        if (Main.getThresholdGameObjects().has(in)) {
             Main.addGameObjects(out);
             added = true;
         }

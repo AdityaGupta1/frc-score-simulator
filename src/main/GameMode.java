@@ -3,7 +3,6 @@ package main;
 import rules.ScoringRule;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameMode {
     private ArrayList<ScoringRule> rules = new ArrayList<>();
@@ -19,12 +18,7 @@ public class GameMode {
             ScoringRule rule = rules.get(i);
             Time time = times.get(i);
 
-            if (time == null) {
-                rule.simulate();
-                return;
-            }
-
-            if ((time.isSingleton() && t == time.getTime()) || (!time.isSingleton() && t % time.getTime() == 0 && t != 0 && t != 15)) {
+            if (time == null || (time.isSingleton() && t == time.getTime()) || (!time.isSingleton() && t % time.getTime() == 0 && t != 0 && t != 15)) {
                 rule.simulate();
             }
         }

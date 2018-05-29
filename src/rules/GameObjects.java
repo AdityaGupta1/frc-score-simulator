@@ -48,4 +48,18 @@ public class GameObjects {
     public void clear() {
         gameObjects.clear();
     }
+
+    public String toString() {
+        String string = "[";
+
+        for (String key : gameObjects.keySet()) {
+            string.concat(key + ":" + gameObjects.get(key) + ", ");
+        }
+
+        if (string.equals("[")) {
+            return "[]";
+        }
+
+        return string.substring(0, string.length() - 2) + "]";
+    }
 }

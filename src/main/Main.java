@@ -150,10 +150,15 @@ public class Main extends Application {
             ScoringRule rule = ScoringRule.parse(in, out, add, ruleType);
             int seconds = 0;
             Time time = null;
-            try {
-                seconds = Integer.parseInt(secondsField.getText());
-                time = new Time(seconds, rateChooser.getValue().equals("at"));
-            } catch (Exception exception) { /* do nothing */ }
+
+            if (!ruleType.equals("threshold")) {
+                try {
+                    seconds = Integer.parseInt(secondsField.getText());
+                    time = new Time(seconds, rateChooser.getValue().equals("at"));
+                    System.out.println(time);
+                } catch (Exception exception) { /* do nothing */ }
+            }
+
             String mode = stageChooser.getValue();
 
             switch(mode) {
@@ -229,13 +234,12 @@ public class Main extends Application {
         for (int t = 0; t <= 15; t++) {
             auton.simulate(t);
             autonSeries.getData().add(new XYChart.Data(t, getPoints()));
-            System.out.println(getPoints());
+//            System.out.println(t + ", " + thresholdGameObjects);
         }
 
         for (int t = 15; t <= 150; t++) {
             teleop.simulate(t);
             teleopSeries.getData().add(new XYChart.Data(t, getPoints()));
-            System.out.println(getPoints());
         }
     }
 
@@ -246,5 +250,9 @@ public class Main extends Application {
 
     public static GameObjects getGameObjects() {
         return gameObjects;
+    }
+
+    public static GameObjects getThresholdGameObjects() {
+        return thresholdGameObjects;
     }
 }
