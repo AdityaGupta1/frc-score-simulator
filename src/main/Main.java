@@ -155,7 +155,6 @@ public class Main extends Application {
                 try {
                     seconds = Integer.parseInt(secondsField.getText());
                     time = new Time(seconds, rateChooser.getValue().equals("at"));
-                    System.out.println(time);
                 } catch (Exception exception) { /* do nothing */ }
             }
 
@@ -234,7 +233,6 @@ public class Main extends Application {
         for (int t = 0; t <= 15; t++) {
             auton.simulate(t);
             autonSeries.getData().add(new XYChart.Data(t, getPoints()));
-//            System.out.println(t + ", " + thresholdGameObjects);
         }
 
         for (int t = 15; t <= 150; t++) {
