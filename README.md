@@ -13,3 +13,9 @@ can include "point" or "points" as an object (both will be counted as points on 
 
 **Planned Rule Types:**
 * Time: adds game objects from a start time to an end time
+
+**Sample Graph:**
+
+![sample graph](example.png)
+
+This graph shows a sample match from the 2017 Steamworks season.
